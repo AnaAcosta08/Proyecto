@@ -7,22 +7,21 @@ Los catálogos tradicionales de streaming suelen mostrar portadas y sinopsis gen
 
 **Algoritmo**
 
-Crear la base de datos utilizando matrices que tengan: tiempo de duración, estado de ánimo asociado, tipo de compañía ideal, reseña atrapante y el título real de la película.
+1. Crear la base de datos utilizando matrices que tengan: tiempo de duración, estado de ánimo asociado, tipo de compañía ideal, reseña atrapante y el título real de la película.
 
-Desplegar el menú de bienvenida.
+2. Desplegar el menú de bienvenida.
 
-Solicitar al usuario su tiempo libre disponible.
+3. Solicitar al usuario su tiempo libre disponible.
 
-Presentar un cuestionario para identificar su estado de ánimo actual.
+4. Presentar un cuestionario para identificar su estado de ánimo actual.
 
-Preguntar la modalidad de visualización (solo, en pareja, con amigos o familia).
+5. Preguntar la modalidad de visualización (solo, en pareja, con amigos o familia).
 
-Evaluar con condicionales y seleccionar las reseñas que coincidan con los tres criterios ingresados.
+6. Evaluar con condicionales y seleccionar las reseñas que coincidan con los tres criterios ingresados.
 
-Desplegar en pantalla las reseñas (sin mostrar los títulos de las películas).
+7. Desplegar en pantalla las reseñas (sin mostrar los títulos de las películas).
 
-Solicitar al usuario que elija la reseña que más le atraiga o le llame la atención.
+8. Solicitar al usuario que elija la reseña que más le atraiga o le llame la atención.
 
-Mostrar el título real de la película seleccionada.
+9. Mostrar el título real de la película seleccionada.
 
-Finalizar.
