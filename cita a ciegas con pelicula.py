@@ -1,10 +1,51 @@
 #cita a ciegas con una película
 
-#entrada de datos del usuario
-tiempo_usuario= int(input("¿Cuántos minutos tienes disponibles?"))
-animo_usuario= input("¿Cómo te sientes? (triste/feliz/melancólico/desconectado):")
-compania_usuario= input("¿Con quién verás la película (solo/pareja/amigos)?")
+#funciones
+def pedir_datos_usuario():
+    """Pregunta al usuario sus datos y los devuelve"""
+    tiempo_usuario= int(input("¿Cuántos minutos tienes disponibles?"))
+    animo_usuario= input("¿Cómo te sientes? (triste/feliz/melancólico/desconectado):")
+    compania_usuario= input("¿Con quién verás la película (solo/pareja/amigos)?")
+    return tiiempo_usuario, animo_usuario, compania_usuario
 
+def calcular_puntaje(animo_pelicula, compania_pelicula, duracion_pelicula, animo_usuario, compania_usuario, tiempo_usuario):
+    """Calcula el puntaje de una película según que tanto coincide con el usuario"""
+    puntaje=0
+    
+    if animo_pelicula==animo_usuario:
+        puntaje = puntaje + 1
+
+    if compania_pelicula==compania_usuario:
+        puntaje = puntaje + 1
+
+# si la duración es mayor al tiempo del usuario se restan puntos
+# para que tenga menos probabilidad de coincidir
+    if duracion_pelicula > tiempo_usuario:
+        puntaje = puntaje - 10
+
+    return puntaje 
+
+def mostrar_resultado(puntaje, resena, titulo):
+    """Muestra la reseña de la película mas compatible y pregunta al usuario si la quiere ver"""
+    if puntaje <= 0:
+        print("No hay películas compatibles para ti")
+        print("Pero si quieres puedes ver esta opción")
+    else:
+        print("Tenemos una buena opción para ti")
+
+    print("Reseña: \"" + resena + "\"")
+    print("¿Quieres ver esta película? (si/no): ")
+    respuesta: input()
+
+    if respuesta=="si":
+        print("Tu película es:", titulo)
+    else:
+        print("Ok, quizás en otra ocasión)
+
+#parte principal del programa
+#entrada de datos del uausario
+tiempo_usuario, animo_usuario, compania_usuario = pedir_datos_usuario()
+              
 #Datos de las películas
 #película 1
 duracion1= 106
@@ -41,68 +82,14 @@ compania5= "amigos"
 resena5="the twink mary poppins gives us a cinematic experience about diabetes"
 titulo5="Wonka (2023)"
 
-#Cálculo de puntajes
+#Cálculo de puntajes usando la función calcular_puntaje()
+puntaje1 = calcular_puntaje(animo1, compania1, duracion1, animo_usuario, compania_usuario, tiempo_usuario)
+puntaje2 = calcular_puntaje(animo2, compania2, duracion2, animo_usuario, compania_usuario, tiempo_usuario)
+puntaje3 = calcular_puntaje(animo3, compania3, duracion3, animo_usuario, compania_usuario, tiempo_usuario)
+puntaje4 = calcular_puntaje(animo4, compania4, duracion4, animo_usuario, compania_usuario, tiempo_usuario)
+puntaje5 = calcular_puntaje(animo5, compania5, duracion5, animo_usuario, compania_usuario, tiempo_usuario)
 
-#Película 1
-puntaje1=0
-if animo1==animo_usuario:
-    puntaje1= puntaje1 + 1
-    
-if compania1==compania_usuario:
-    puntaje1=puntaje1 + 1
-    
-#Pelicula 2
-puntaje2= 0
-if animo2==animo_usuario:
-    puntaje2=puntaje2 + 1
-    
-if compania2==compania_usuario:
-    puntaje2=puntaje2 + 1
-    
-#pelicula 3
-puntaje3 = 0
-if animo3==animo_usuario:
-    puntaje3=puntaje3 + 1
-
-if compania3==compania_usuario:
-    puntaje3=puntaje3 + 1
-    
-#pelicula 4
-puntaje4 = 0
-if animo4==animo_usuario:
-    puntaje4=puntaje4 + 1
-    
-if compania4==compania_usuario:
-    puntaje4=puntaje4 + 1
-    
-#pelicula 5
-puntaje5=0
-if animo5==animo_usuario:
-    puntaje5=puntaje5 + 1
-    
-if compania5==compania_usuario:
-    puntaje5=puntaje5 + 1
-    
-#duracion de la pelicula.
-#si la duracion es mayor al tiempo del usuario se restará puntos al puntaje
-#para que tenga menos probabilidad de coincidir
-    
-if duracion1 > tiempo_usuario:
-    puntaje1 = puntaje1 - 10
-
-if duracion2 > tiempo_usuario:
-    puntaje2 = puntaje2 - 10
-
-if duracion3 > tiempo_usuario:
-    puntaje3 = puntaje3 - 10
-
-if duracion4 > tiempo_usuario:
-    puntaje4 = puntaje4 - 10
-
-if duracion5 > tiempo_usuario:
-    puntaje5 = puntaje5 - 10
-    
-# Encontrar la película con mayor puntaje
+#Encontrar la película  con mayor puntaje
 mejor_puntaje = puntaje1
 mejor_pelicula = 1
 
@@ -121,62 +108,23 @@ if puntaje4 > mejor_puntaje:
 if puntaje5 > mejor_puntaje:
     mejor_puntaje = puntaje5
     mejor_pelicula = 5
-    
-# Como al iniciar declaré la variable mejor_puntaje= puntaje1,
-#aunque todas las películas me den un valor menor a 1 en puntaje, me dará como mejor opción la película 1.
-# para evitar esto añadí una condicional para imrpimir un texto que indique que no hay coincidencias.
-if mejor_puntaje <= 0:
-    print("No hay películas que coincidan muy bien con tus criterios.")
-    print("Pero si quieres, puedes ver esta opción:")
-else:
-    print("Tenemos una buena opción para ti:")
-    
-# Mostrar la película elegida
+
+#Mostrar la película elegida, usando la función mostrar_resultado()
 if mejor_pelicula == 1:
-    print("Reseña: \"" + resena1 + "\"")
-    print("¿Quieres ver esta película? (si/no): ")
-    respuesta = input()
-    if respuesta =="si":
-        print("Tu película es:", titulo1)
-    else:
-        print("Ok, quizás otra vez.")
+    mostrar_resultado(mejor_puntaje, resena1, titulo1)
 
 if mejor_pelicula == 2:
-    print("Reseña: \"" + resena2 + "\"")
-    print("¿Quieres ver esta película? (si/no): ")
-    respuesta = input()
-    if respuesta == "si":
-        print("Tu película es:", titulo2)
-    else:
-        print("Ok, quizás otra vez.")
+    mostrar_resultado(mejor_puntaje, resena2, titulo2)
 
 if mejor_pelicula == 3:
-    print("Reseña: \"" + resena3 + "\"")
-    print("¿Quieres ver esta película? (si/no): ")
-    respuesta = input()
-    if respuesta == "si":
-        print("Tu película es:", titulo3)
-    else:
-        print("Ok, quizás otra vez.")
+    mostrar_resultado(mejor_puntaje, resena3, titulo3)
 
 if mejor_pelicula == 4:
-    print("Reseña: \"" + resena4 + "\"")
-    print("¿Quieres ver esta película? (si/no): ")
-    respuesta = input()
-    if respuesta == "si":
-        print("Tu película es:", titulo4)
-    else:
-        print("Ok, quizás otra vez.")
+    mostrar_resultado(mejor_puntaje, resena4, titulo4)
 
 if mejor_pelicula == 5:
-    print("Reseña: \"" + resena5 + "\"")
-    print("¿Quieres ver esta película? (si/no): ")
-    respuesta = input()
-    if respuesta == "si":
-        print("Tu película es:", titulo5)
-    else:
-        print("Ok, quizás otra vez.")
-    
+    mostrar_resultado(mejor_puntaje, resena5, titulo5)
+
 
 #Notas sobre este avance
 
