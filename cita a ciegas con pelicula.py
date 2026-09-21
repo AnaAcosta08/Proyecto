@@ -6,7 +6,7 @@ def pedir_datos_usuario():
     tiempo_usuario= int(input("¿Cuántos minutos tienes disponibles?"))
     animo_usuario= input("¿Cómo te sientes? (triste/feliz/melancólico/desconectado):")
     compania_usuario= input("¿Con quién verás la película (solo/pareja/amigos)?")
-    return tiiempo_usuario, animo_usuario, compania_usuario
+    return tiempo_usuario, animo_usuario, compania_usuario
 
 def calcular_puntaje(animo_pelicula, compania_pelicula, duracion_pelicula, animo_usuario, compania_usuario, tiempo_usuario):
     """Calcula el puntaje de una película según que tanto coincide con el usuario"""
@@ -35,12 +35,12 @@ def mostrar_resultado(puntaje, resena, titulo):
 
     print("Reseña: \"" + resena + "\"")
     print("¿Quieres ver esta película? (si/no): ")
-    respuesta: input()
+    respuesta = input()
 
     if respuesta=="si":
         print("Tu película es:", titulo)
     else:
-        print("Ok, quizás en otra ocasión)
+        print("Ok, quizás en otra ocasión")
 
 #parte principal del programa
 #entrada de datos del uausario
@@ -137,5 +137,3 @@ if mejor_pelicula == 5:
 #mi objetivo es que conforme aprenda más herramientas planeo ampliar
 #la base de datos y hacer que el programa muestre varias reseñas para que
 #el usuario elija y poder hacer mi idea original.
-
-
