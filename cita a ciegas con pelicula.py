@@ -61,10 +61,6 @@ def mostrar_resultado(puntaje, resena, titulo):
     else:
         print("Ok, quizás en otra ocasión")
 
-#parte principal del programa
-#entrada de datos del uausario
-tiempo_usuario, animo_usuario, compania_usuario = pedir_datos_usuario()
-              
 #Datos de las películas
 #película 1
 DURACION_1 = 106
@@ -103,54 +99,71 @@ RESENA_5 = "the twink mary poppins gives us a cinematic\
  experience about diabetes"
 TITULO_5 = "Wonka (2023)"
 
-#Cálculo de puntajes usando la función calcular_puntaje()
-puntaje1 = calcular_puntaje(ANIMO_1, COMPANIA_1, DURACION_1, animo_usuario,
-                            compania_usuario, tiempo_usuario)
-puntaje2 = calcular_puntaje(ANIMO_2, COMPANIA_2, DURACION_2, animo_usuario,
-                            compania_usuario, tiempo_usuario)
-puntaje3 = calcular_puntaje(ANIMO_3, COMPANIA_3, DURACION_3, animo_usuario,
-                            compania_usuario, tiempo_usuario)
-puntaje4 = calcular_puntaje(ANIMO_4, COMPANIA_4, DURACION_4, animo_usuario,
-                            compania_usuario, tiempo_usuario)
-puntaje5 = calcular_puntaje(ANIMO_5, COMPANIA_5, DURACION_5, animo_usuario,
-                            compania_usuario, tiempo_usuario)
+#parte principal del programa
+#el ciclo "while" permite repetir toda la búsqueda sin tener que
+#volver a correr el programa cada vez
+repetir = "si"
 
-#Encontrar la película  con mayor puntaje
-mejor_puntaje = puntaje1
-mejor_pelicula = 1
+while repetir == "si":
 
-if puntaje2 > mejor_puntaje:
-    mejor_puntaje = puntaje2
-    mejor_pelicula = 2
+    #entrada de datos del usuario
+    tiempo_usuario, animo_usuario, compania_usuario = pedir_datos_usuario()
+    
+    #Cálculo de puntajes usando la función calcular_puntaje()
+    puntaje1 = calcular_puntaje(ANIMO_1, COMPANIA_1, DURACION_1, animo_usuario,
+                                compania_usuario, tiempo_usuario)
+    puntaje2 = calcular_puntaje(ANIMO_2, COMPANIA_2, DURACION_2, animo_usuario,
+                                compania_usuario, tiempo_usuario)
+    puntaje3 = calcular_puntaje(ANIMO_3, COMPANIA_3, DURACION_3, animo_usuario,
+                                compania_usuario, tiempo_usuario)
+    puntaje4 = calcular_puntaje(ANIMO_4, COMPANIA_4, DURACION_4, animo_usuario,
+                                compania_usuario, tiempo_usuario)
+    puntaje5 = calcular_puntaje(ANIMO_5, COMPANIA_5, DURACION_5, animo_usuario,
+                                compania_usuario, tiempo_usuario)
 
-if puntaje3 > mejor_puntaje:
-    mejor_puntaje = puntaje3
-    mejor_pelicula = 3
+    #Encontrar la película  con mayor puntaje
+    mejor_puntaje = puntaje1
+    mejor_pelicula = 1
 
-if puntaje4 > mejor_puntaje:
-    mejor_puntaje = puntaje4
-    mejor_pelicula = 4
+    if puntaje2 > mejor_puntaje:
+        mejor_puntaje = puntaje2
+        mejor_pelicula = 2
 
-if puntaje5 > mejor_puntaje:
-    mejor_puntaje = puntaje5
-    mejor_pelicula = 5
+    if puntaje3 > mejor_puntaje:
+        mejor_puntaje = puntaje3
+        mejor_pelicula = 3
 
-#Mostrar la película elegida, usando la función mostrar_resultado()
-if mejor_pelicula == 1:
-    mostrar_resultado(mejor_puntaje, RESENA_1, TITULO_1)
+    if puntaje4 > mejor_puntaje:
+        mejor_puntaje = puntaje4
+        mejor_pelicula = 4
 
-if mejor_pelicula == 2:
-    mostrar_resultado(mejor_puntaje, RESENA_2, TITULO_2)
+    if puntaje5 > mejor_puntaje:
+        mejor_puntaje = puntaje5
+        mejor_pelicula = 5
 
-if mejor_pelicula == 3:
-    mostrar_resultado(mejor_puntaje, RESENA_3, TITULO_3)
+    #Mostrar la película elegida, usando la función mostrar_resultado()
+    #se usa elif porque mejor_pelicula solo puede tener un valor a la vez,
+    #así que no tiene caso seguir revisando una vez que ya encontró el match
+    if mejor_pelicula == 1:
+        mostrar_resultado(mejor_puntaje, RESENA_1, TITULO_1)
 
-if mejor_pelicula == 4:
-    mostrar_resultado(mejor_puntaje, RESENA_4, TITULO_4)
+    elif mejor_pelicula == 2:
+        mostrar_resultado(mejor_puntaje, RESENA_2, TITULO_2)
 
-if mejor_pelicula == 5:
-    mostrar_resultado(mejor_puntaje, RESENA_5, TITULO_5)
+    elif mejor_pelicula == 3:
+        mostrar_resultado(mejor_puntaje, RESENA_3, TITULO_3)
 
+    elif mejor_pelicula == 4:
+        mostrar_resultado(mejor_puntaje, RESENA_4, TITULO_4)
+
+    elif mejor_pelicula == 5:
+        mostrar_resultado(mejor_puntaje, RESENA_5, TITULO_5)
+
+    #se pregunta si quiere repetir la búsqueda; cualquier respuesta
+    #distinta a "si" termina el ciclo
+    repetir = input("¿Quieres buscar otra película? (si/no): ")
+
+print("¡Gracias por usar el programa!")
 
 #Notas sobre este avance
 
