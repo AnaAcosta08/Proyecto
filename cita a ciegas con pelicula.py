@@ -1,5 +1,12 @@
 #cita a ciegas con una película
-
+ 
+#posición (columna) de cada dato dentro del renglón de una película
+DURACION = 0
+ANIMO = 1
+COMPANIA = 2
+RESENA = 3
+TITULO = 4
+ 
 #funciones
 def pedir_datos_usuario():
     """
@@ -43,17 +50,19 @@ def calcular_puntaje(animo_pelicula,
  
     return puntaje
  
-def calcular_puntajes(animos, companias, duraciones,
-                      animo_usuario, compania_usuario, tiempo_usuario):
+def calcular_puntajes(peliculas, animo_usuario, compania_usuario,
+                      tiempo_usuario):
     """
-    recibe: las listas animos, companias y duraciones de las películas
+    recibe: la matriz peliculas (un renglón por película)
             y los datos del usuario
     calcula el puntaje de cada película usando calcular_puntaje()
     devuelve: lista puntajes (un puntaje por película, en el mismo orden)
     """
     puntajes = []
-    for i in range(len(animos)):
-        puntaje = calcular_puntaje(animos[i], companias[i], duraciones[i],
+    for i in range(len(peliculas)):
+        puntaje = calcular_puntaje(peliculas[i][ANIMO],
+                                   peliculas[i][COMPANIA],
+                                   peliculas[i][DURACION],
                                    animo_usuario, compania_usuario,
                                    tiempo_usuario)
         puntajes.append(puntaje)
@@ -61,7 +70,7 @@ def calcular_puntajes(animos, companias, duraciones,
  
 def buscar_compatibles(puntajes):
     """
-    recibe: lista puntajes 
+    recibe: lista puntajes
     busca las películas compatibles (que tienen
     puntaje mayor a 0)
     devuelve: lista compatibles con las posiciones de esas películas
@@ -74,9 +83,9 @@ def buscar_compatibles(puntajes):
  
 def buscar_mejor(puntajes):
     """
-    recibe lista puntajes 
+    recibe lista puntajes
     busca cuál es el mayor puntaje de la lista
-    devuelve la posición de la película con mayor puntaje 
+    devuelve la posición de la película con mayor puntaje
     """
     posicion_mejor = 0
     for i in range(len(puntajes)):
@@ -84,22 +93,22 @@ def buscar_mejor(puntajes):
             posicion_mejor = i
     return posicion_mejor
  
-def mostrar_opciones(compatibles, resenas):
+def mostrar_opciones(compatibles, peliculas):
     """
     recibe: lista compatibles (posiciones de las películas compatibles)
-            y lista resenas 
+            y la matriz peliculas
     muestra la reseña de cada película compatible con un número
     (el título queda oculto)
     """
     for n in range(len(compatibles)):
         posicion = compatibles[n]
-        print(str(n + 1) + ") Reseña: \"" + resenas[posicion] + "\"")
+        print(str(n + 1) + ") Reseña: \"" + peliculas[posicion][RESENA] + "\"")
  
 def pedir_opcion(cantidad):
     """
-    recibe cantidad de opciones disponibles 
+    recibe cantidad de opciones disponibles
     pide al usuario que elija una opción y repite la pregunta
-    hasta que sea un número válido 
+    hasta que sea un número válido
     devuelve: opcion elegida por el usuario
     """
     texto = "Elige el número de tu cita a ciegas (0 si ninguna te convence): "
@@ -128,60 +137,67 @@ def mostrar_resultado(puntaje, resena, titulo):
         print("Ok, quizás en otra ocasión")
  
 #Datos de las películas
-#cada lista guarda un dato de las películas, y la posición indica la película:
+#cada renglón es una película y cada columna un dato
+#[duración, ánimo, compañía, reseña, título]
 
-DURACIONES = [106, 90, 120, 120, 117,
-              108, 122, 126, 125, 120,
-              89, 99, 103, 137, 95]
-ANIMOS = ["melancólico", "feliz", "triste", "desconectado", "feliz",
-          "melancólico", "feliz", "melancólico", "desconectado",
-          "desconectado", "triste", "feliz", "feliz", "triste", "triste"]
-COMPANIAS = ["amigos", "amigos", "pareja", "solo", "amigos",
-             "pareja", "pareja", "solo", "pareja", "amigos",
-             "solo", "amigos", "solo", "solo", "amigos"]
-RESENAS = ["fun road trip for the whole family!",
-           "Hacen exactamente el mismo chiste\
+PELICULAS = [[106, "melancólico", "amigos",
+              "fun road trip for the whole family!",
+              "Y tú mamá también (2001)"],
+             [90, "feliz", "amigos",
+              "Hacen exactamente el mismo chiste\
  durante una hora y media y te sigue dando risa",
-           "we cannot let Mr Beast ever see this film",
-           "el que rie al último rie mejor",
-           "the twink mary poppins gives us a cinematic\
+              "Una película de huevos (2006)"],
+             [120, "triste", "pareja",
+              "we cannot let Mr Beast ever see this film",
+              "They shoot horses, don´t they? (1969)"],
+             [120, "desconectado", "solo",
+              "el que rie al último rie mejor",
+              "Oldboy (2003)"],
+             [117, "feliz", "amigos",
+              "the twink mary poppins gives us a cinematic\
  experience about diabetes",
-           "No me puedo imaginar querer borrar a Kate Winslet de mi memoria",
-           "The film equivalent of rolling down a big hill or carving your\
+              "Wonka (2023)"],
+             [108, "melancólico", "pareja",
+              "No me puedo imaginar querer borrar a Kate Winslet de mi memoria",
+              "Eternal Sunshine of the Spotless Mind (2004)"],
+             [122, "feliz", "pareja",
+              "The film equivalent of rolling down a big hill or carving your\
  name into the sand when you were little",
-           "Un hombre solitario se enamora de la voz de su\
+              "Amélie (2001)"],
+             [126, "melancólico", "solo",
+              "Un hombre solitario se enamora de la voz de su\
  asistente virtual",
-           "Una niña atrapada en un mundo de espíritus donde nada es\
+              "Her (2013)"],
+             [125, "desconectado", "pareja",
+              "Una niña atrapada en un mundo de espíritus donde nada es\
  lo que parece",
-           "Dos horas de persecución a toda velocidad\
+              "El viaje de Chihiro (2001)"],
+             [120, "desconectado", "amigos",
+              "Dos horas de persecución a toda velocidad\
  en medio del desierto",
-           "Dos hermanos intentan sobrevivir mientras el mundo\
+              "Mad Max: Furia en el camino (2015)"],
+             [89, "triste", "solo",
+              "Dos hermanos intentan sobrevivir mientras el mundo\
  a su alrededor se derrumba",
-           "Un tipo ordinario descubre que el apocalipsis zombi\
+              "La tumba de las luciérnagas (1988)"],
+             [99, "feliz", "amigos",
+              "Un tipo ordinario descubre que el apocalipsis zombi\
  no arruinará su plan de ir al bar",
-           "Un oso amable y su sombrero rojo demuestran que\
+              "Shaun of the Dead (2004)"],
+             [103, "feliz", "solo",
+              "Un oso amable y su sombrero rojo demuestran que\
  la bondad sí funciona",
-           "Un hombre regresa a su pueblo y se enfrenta\
+              "Paddington 2 (2017)"],
+             [137, "triste", "solo",
+              "Un hombre regresa a su pueblo y se enfrenta\
  a lo que intentó dejar atrás",
-           "Todas las emociones de una niña discuten en su\
- cabeza durante una mudanza"]
-TITULOS = ["Y tú mamá también (2001)",
-           "Una película de huevos (2006)",
-           "They shoot horses, don´t they? (1969)",
-           "Oldboy (2003)",
-           "Wonka (2023)",
-           "Eternal Sunshine of the Spotless Mind (2004)",
-           "Amélie (2001)",
-           "Her (2013)",
-           "El viaje de Chihiro (2001)",
-           "Mad Max: Furia en el camino (2015)",
-           "La tumba de las luciérnagas (1988)",
-           "Shaun of the Dead (2004)",
-           "Paddington 2 (2017)",
-           "Manchester by the Sea (2016)",
-           "Intensamente (2015)"]
+              "Manchester by the Sea (2016)"],
+             [95, "triste", "amigos",
+              "Todas las emociones de una niña discuten en su\
+ cabeza durante una mudanza",
+              "Intensamente (2015)"]]
  
-#parte principal 
+#parte principal
 repetir = "si"
  
 while repetir == "si":
@@ -190,9 +206,8 @@ while repetir == "si":
     tiempo_usuario, animo_usuario, compania_usuario = pedir_datos_usuario()
  
     #Cálculo de puntajes: una lista con el puntaje de cada película
-    puntajes = calcular_puntajes(ANIMOS, COMPANIAS, DURACIONES,
-                                 animo_usuario, compania_usuario,
-                                 tiempo_usuario)
+    puntajes = calcular_puntajes(PELICULAS, animo_usuario,
+                                 compania_usuario, tiempo_usuario)
  
     #Buscar las películas compatibles (puntaje mayor a 0)
     compatibles = buscar_compatibles(puntajes)
@@ -200,18 +215,19 @@ while repetir == "si":
     if len(compatibles) == 0:
         #si no hay ninguna compatible se ofrece la de mayor puntaje
         mejor = buscar_mejor(puntajes)
-        mostrar_resultado(puntajes[mejor], RESENAS[mejor], TITULOS[mejor])
+        mostrar_resultado(puntajes[mejor], PELICULAS[mejor][RESENA],
+                          PELICULAS[mejor][TITULO])
     else:
         #si hay compatibles, el usuario elige cuál quiere ver
         print("Estas son tus citas a ciegas:")
-        mostrar_opciones(compatibles, RESENAS)
+        mostrar_opciones(compatibles, PELICULAS)
         opcion = pedir_opcion(len(compatibles))
  
         if opcion == 0:
             print("Ok, quizás en otra ocasión")
         else:
             pelicula = compatibles[opcion - 1]
-            print("Tu película es:", TITULOS[pelicula])
+            print("Tu película es:", PELICULAS[pelicula][TITULO])
  
     repetir = input("¿Quieres buscar otra película? (si/no): ")
  
