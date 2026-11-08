@@ -8,6 +8,18 @@ RESENA = 3
 TITULO = 4
  
 #funciones
+
+def limpiar_texto(texto):
+    
+    texto = texto.strip()
+    texto = texto.lower()
+    texto = texto.replace("á", "a")
+    texto = texto.replace("é", "e")
+    texto = texto.replace("í", "i")
+    texto = texto.replace("ó", "o")
+    texto = texto.replace("ú", "u")
+    return texto
+ 
 def pedir_datos_usuario():
     """
     Pregunta al usuario sus datos
@@ -15,12 +27,12 @@ def pedir_datos_usuario():
     compania_usuario (texto) y los devuelve
     """
     tiempo_usuario = int(input("¿Cuántos minutos tienes disponibles?"))
-    animo_usuario = input("¿Cómo te sientes?(triste/feliz/\
-melancólico/desconectado):")
-    compania_usuario = input("¿Con quién verás la película\
-(solo/pareja/amigos)?")
+    animo_usuario = limpiar_texto(input("¿Cómo te sientes?(triste/feliz/\
+melancólico/desconectado):"))
+    compania_usuario = limpiar_texto(input("¿Con quién verás la película\
+(solo/pareja/amigos)?"))
     return tiempo_usuario, animo_usuario, compania_usuario
- 
+
 def calcular_puntaje(animo_pelicula,
                      compania_pelicula,
                      duracion_pelicula,
@@ -37,10 +49,10 @@ def calcular_puntaje(animo_pelicula,
     devuelve: puntaje
     """
     puntaje = 0
-    if animo_pelicula == animo_usuario:
+    if limpiar_texto(animo_pelicula) == animo_usuario:
         puntaje = puntaje + 1
  
-    if compania_pelicula == compania_usuario:
+    if limpiar_texto(compania_pelicula) == compania_usuario:
         puntaje = puntaje + 1
  
     # si la duración es mayor al tiempo del usuario se restan puntos
@@ -129,7 +141,7 @@ def mostrar_resultado(puntaje, resena, titulo):
  
     print("Reseña: \"" + resena + "\"")
     print("¿Quieres ver esta película? (si/no): ")
-    respuesta = input()
+    respuesta = limpiar_texto(input())
  
     if respuesta == "si":
         print("Tu película es:", titulo)
@@ -229,7 +241,6 @@ while repetir == "si":
             pelicula = compatibles[opcion - 1]
             print("Tu película es:", PELICULAS[pelicula][TITULO])
  
-    repetir = input("¿Quieres buscar otra película? (si/no): ")
+    repetir = limpiar_texto(input("¿Quieres buscar otra película? (si/no): "))
  
 print("¡Gracias por usar el programa!")
- 
