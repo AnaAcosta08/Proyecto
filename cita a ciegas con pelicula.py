@@ -19,7 +19,7 @@ def limpiar_texto(texto):
     texto = texto.replace("ó", "o")
     texto = texto.replace("ú", "u")
     return texto
- 
+
 def pedir_datos_usuario():
     """
     Pregunta al usuario sus datos
@@ -147,68 +147,30 @@ def mostrar_resultado(puntaje, resena, titulo):
         print("Tu película es:", titulo)
     else:
         print("Ok, quizás en otra ocasión")
- 
-#Datos de las películas
-#cada renglón es una película y cada columna un dato
-#[duración, ánimo, compañía, reseña, título]
+        
 
-PELICULAS = [[106, "melancólico", "amigos",
-              "fun road trip for the whole family!",
-              "Y tú mamá también (2001)"],
-             [90, "feliz", "amigos",
-              "Hacen exactamente el mismo chiste\
- durante una hora y media y te sigue dando risa",
-              "Una película de huevos (2006)"],
-             [120, "triste", "pareja",
-              "we cannot let Mr Beast ever see this film",
-              "They shoot horses, don´t they? (1969)"],
-             [120, "desconectado", "solo",
-              "el que rie al último rie mejor",
-              "Oldboy (2003)"],
-             [117, "feliz", "amigos",
-              "the twink mary poppins gives us a cinematic\
- experience about diabetes",
-              "Wonka (2023)"],
-             [108, "melancólico", "pareja",
-              "No me puedo imaginar querer borrar a Kate Winslet de mi memoria",
-              "Eternal Sunshine of the Spotless Mind (2004)"],
-             [122, "feliz", "pareja",
-              "The film equivalent of rolling down a big hill or carving your\
- name into the sand when you were little",
-              "Amélie (2001)"],
-             [126, "melancólico", "solo",
-              "Un hombre solitario se enamora de la voz de su\
- asistente virtual",
-              "Her (2013)"],
-             [125, "desconectado", "pareja",
-              "Una niña atrapada en un mundo de espíritus donde nada es\
- lo que parece",
-              "El viaje de Chihiro (2001)"],
-             [120, "desconectado", "amigos",
-              "Dos horas de persecución a toda velocidad\
- en medio del desierto",
-              "Mad Max: Furia en el camino (2015)"],
-             [89, "triste", "solo",
-              "Dos hermanos intentan sobrevivir mientras el mundo\
- a su alrededor se derrumba",
-              "La tumba de las luciérnagas (1988)"],
-             [99, "feliz", "amigos",
-              "Un tipo ordinario descubre que el apocalipsis zombi\
- no arruinará su plan de ir al bar",
-              "Shaun of the Dead (2004)"],
-             [103, "feliz", "solo",
-              "Un oso amable y su sombrero rojo demuestran que\
- la bondad sí funciona",
-              "Paddington 2 (2017)"],
-             [137, "triste", "solo",
-              "Un hombre regresa a su pueblo y se enfrenta\
- a lo que intentó dejar atrás",
-              "Manchester by the Sea (2016)"],
-             [95, "triste", "amigos",
-              "Todas las emociones de una niña discuten en su\
- cabeza durante una mudanza",
-              "Intensamente (2015)"]]
- 
+def carga_peliculas(nombre_archivo):
+    """
+    recibe: nombre_archivo con el nombre del archivo de películas
+    lee el archivo donde cada linea es una pelicula con sus datos
+    separados por tabulador: duración, ánimo, compañía, reseña, título
+    devuelve: matriz peliculas (un renglón por película)
+    """
+    peliculas = []
+    archivo = open(nombre_archivo, "r", encoding="utf-8")
+    for linea in archivo:
+        campos = linea.strip().split("\t")
+        duracion = int(campos[0])
+        renglon = [duracion, campos[1], campos[2], campos[3], campos[4]]
+        peliculas.append(renglon)
+    archivo.close()
+    return peliculas
+
+#Datos de las películas
+#se cargan desde peliculas.txt: cada línea es una película con sus datos
+#separados por tabulador (duración, ánimo, compañía, reseña, título)
+PELICULAS = carga_peliculas("peliculas.txt")
+
 #parte principal
 repetir = "si"
  
