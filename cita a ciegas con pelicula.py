@@ -10,7 +10,12 @@ TITULO = 4
 #funciones
 
 def limpiar_texto(texto):
-    
+    """
+    recibe texto escrito por el usuario o un dato de la película
+    quita los espacios del inicio y del final, convierte todo a
+    minúsculas y reemplaza las vocales con acento por vocales sin acento
+    devuelve el texto limpio
+    """
     texto = texto.strip()
     texto = texto.lower()
     texto = texto.replace("á", "a")
@@ -171,38 +176,45 @@ def carga_peliculas(nombre_archivo):
 #separados por tabulador (duración, ánimo, compañía, reseña, título)
 PELICULAS = carga_peliculas("peliculas.txt")
 
-#parte principal
-repetir = "si"
- 
-while repetir == "si":
- 
-    #entrada de datos del usuario
-    tiempo_usuario, animo_usuario, compania_usuario = pedir_datos_usuario()
- 
-    #Cálculo de puntajes: una lista con el puntaje de cada película
-    puntajes = calcular_puntajes(PELICULAS, animo_usuario,
-                                 compania_usuario, tiempo_usuario)
- 
-    #Buscar las películas compatibles (puntaje mayor a 0)
+def elegir_pelicula(puntajes, peliculas):
+    """
+    recibe: puntajes (lista de números) y la matriz peliculas.
+    muestra las reseñas de las películas compatibles, deja que el
+    usuario elija una y revela su título
+    no devuelve nada
+    """
     compatibles = buscar_compatibles(puntajes)
- 
+
     if len(compatibles) == 0:
-        #si no hay ninguna compatible se ofrece la de mayor puntaje
+        # si no hay ninguna compatible se ofrece la de mayor puntaje
         mejor = buscar_mejor(puntajes)
-        mostrar_resultado(puntajes[mejor], PELICULAS[mejor][RESENA],
-                          PELICULAS[mejor][TITULO])
+        mostrar_resultado(puntajes[mejor], peliculas[mejor][RESENA],
+                          peliculas[mejor][TITULO])
     else:
-        #si hay compatibles, el usuario elige cuál quiere ver
+        # si hay compatibles, el usuario elige cuál quiere ver
         print("Estas son tus citas a ciegas:")
-        mostrar_opciones(compatibles, PELICULAS)
+        mostrar_opciones(compatibles, peliculas)
         opcion = pedir_opcion(len(compatibles))
- 
+
         if opcion == 0:
             print("Ok, quizás en otra ocasión")
         else:
             pelicula = compatibles[opcion - 1]
-            print("Tu película es:", PELICULAS[pelicula][TITULO])
- 
+            print("Tu película es:", peliculas[pelicula][TITULO])
+#parte principal
+repetir = "si"
+
+while repetir == "si":
+
+    #entrada de datos del usuario
+    tiempo_usuario, animo_usuario, compania_usuario = pedir_datos_usuario()
+
+    #Cálculo de puntajes
+    puntajes = calcular_puntajes(PELICULAS, animo_usuario,
+                                 compania_usuario, tiempo_usuario)
+
+    elegir_pelicula(puntajes, PELICULAS)
+
     repetir = limpiar_texto(input("¿Quieres buscar otra película? (si/no): "))
- 
-print("¡Gracias por usar el programa!")
+
+print("Adiós")
