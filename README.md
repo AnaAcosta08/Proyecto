@@ -1,25 +1,14 @@
 # Proyecto: Cita a ciegas con una película
-**Contexto**
+Cita a ciegas con una película
+Contexto
 
-Actualmente existen múltiples plataformas de streaming en donde elegir qué película ver nos puede tomar mucho tiempo debido a la gran variedad de películas que nos ofrecen. En promedio, una persona pasa más de 18 minutos decidiendo qué ver.
+Hoy existen muchas plataformas de streaming, y elegir qué ver puede tomar mucho tiempo por la cantidad de películas que ofrecen. En promedio, una persona pasa más de 18 minutos decidiendo qué ver.
 
-Los catálogos tradicionales de streaming suelen mostrar portadas y sinopsis genéricas que no revelan si una película realmente conecta con el momento del usuario. Este programa ofrece una experiencia tipo "cita a ciegas", donde el usuario no ve el título de la película de inmediato, sino que elige a través de reseñas cortas extraídas de comunidades como Reddit y Letterboxd. El programa evalúa el tiempo disponible, el estado de ánimo y la compañía del usuario mediante condicionales y matrices, para revelar la película seleccionada.
+Los catálogos tradicionales muestran portadas y sinopsis genéricas, que no dicen si una película conecta con el momento del usuario. Este programa propone una experiencia tipo "cita a ciegas" donde el usuario no ve el título de entrada, sino reseñas cortas tomadas de comunidades como Reddit y Letterboxd, y elige la que más le llame la atención. El título se revela hasta que elige.
 
-**Algoritmo**
+Este programa es un recomendador de películas que corre en terminal con Python 3. Pregunta cuánto tiempo libre tiene el usuario, cómo se siente y con quién va a ver la película. Con esos datos calcula un puntaje para cada película de su base de datos (un archivo de texto), muestra las reseñas de las compatibles y revela el título de la que el usuario elija. La búsqueda se puede repetir las veces que se quiera y no usa bibliotecas externas.
 
-1. Crear la base de datos utilizando matrices que tengan: tiempo de duración, estado de ánimo asociado, tipo de compañía ideal, reseña atrapante y el título real de la película.
-
-2. Solicitar al usuario su tiempo libre disponible.
-
-3. Presentar un cuestionario para identificar su estado de ánimo actual.
-
-4. Preguntar la modalidad de visualización (solo, en pareja, con amigos o familia).
-
-5. Evaluar con condicionales y seleccionar las reseñas que coincidan con los tres criterios ingresados.
-
-6. Desplegar en pantalla las reseñas (sin mostrar los títulos de las películas).
-
-7. Solicitar al usuario que elija la reseña que más le atraiga o le llame la atención.
-
-8. Mostrar el título real de la película seleccionada.
-
+Instrucciones
+Descargar el repositorio completo. Los archivos cita a ciegas con pelicula.py y peliculas.txt deben estar en la misma carpeta. 
+Abrir una terminal en esa carpeta y correr 
+python cita_a_ciegas_con_pelicula.py"
